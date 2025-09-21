@@ -1,0 +1,32 @@
+name: gh-pages-action
+description: Deploy GitHub Pages
+
+author: "Kohei Morita <mrtc0@ssrf.in>"
+
+branding:
+  icon: "upload-cloud"
+  color: "blue"
+
+inputs:
+  github_token:
+    description: "GitHub token for authentication."
+    required: false
+    default: "${{ github.token }}"
+
+  publish_branch:
+    description: "The branch to which to deploy."
+    required: false
+    default: "gh-pages"
+
+  publish_dir:
+    description: "The directory to publish."
+    required: false
+    default: "public"
+
+  cname:
+    description: "A custom domain to set."
+    required: false
+
+runs:
+  using: node20
+  main: dist/index.js
