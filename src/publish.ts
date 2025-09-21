@@ -87,3 +87,11 @@ async function createCNAME(cname: string, dir: string): Promise<void> {
     await fs.promises.writeFile(path.join(dir, "CNAME"), cname);
   }
 }
+
+export async function copyPublishDir(src: string, dest: string): Promise<void> {
+  await io.cp(src, dest, {
+    recursive: true,
+    force: true,
+    copySourceDirectory: false,
+  });
+}
