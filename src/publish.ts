@@ -74,7 +74,7 @@ export async function createWorkingRepo(inputs: Inputs): Promise<string> {
 
     process.chdir(tmpDir);
 
-    io.cp(`${publishDir}/*`, tmpDir, { recursive: true, force: true });
+    copyPublishDir(publishDir, tmpDir);
   } catch (error) {
     throw new Error(`Failed to clone repository: ${error}`);
   }

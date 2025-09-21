@@ -30091,6 +30091,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.publish = publish;
 exports.getRemoteURL = getRemoteURL;
 exports.createWorkingRepo = createWorkingRepo;
+exports.copyPublishDir = copyPublishDir;
 const path = __importStar(__nccwpck_require__(6928));
 const github = __importStar(__nccwpck_require__(3228));
 const exec = __importStar(__nccwpck_require__(5236));
@@ -30147,7 +30148,7 @@ async function createWorkingRepo(inputs) {
             throw new Error(`Failed to clone repository: ${exitCode}`);
         }
         process.chdir(tmpDir);
-        io.cp(`${publishDir}/*`, tmpDir, { recursive: true, force: true });
+        copyPublishDir(publishDir, tmpDir);
     }
     catch (error) {
         throw new Error(`Failed to clone repository: ${error}`);
@@ -30158,6 +30159,13 @@ async function createCNAME(cname, dir) {
     if (cname) {
         await fs_1.default.promises.writeFile(path.join(dir, "CNAME"), cname);
     }
+}
+async function copyPublishDir(src, dest) {
+    await io.cp(src, dest, {
+        recursive: true,
+        force: true,
+        copySourceDirectory: false,
+    });
 }
 
 
